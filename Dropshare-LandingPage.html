@@ -1,68 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>__FILETYPE__, __FILESIZE__</title>
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
-  <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="e95qd6esrv8hsq2"></script>
-
-
-  <meta property="og:title" content="__FILENAME__" />
-  <meta property="og:site_name" content="__FILENAME__"/>
-  <meta property="og:image" content="__PREVIEWURL__" />
-
-  <style>
-        img {
-        max-width: 100%;
-        max-height: 80vh;
-        }
-        video, iframe {
-        height: auto;
-        max-height: 80vh;
-        width: 100%;
-        }
-        iframe {
-        height: 80vh;
-        }
-  </style>
-</head>
-
-<body>
-  <nav>
-  <div class="nav-wrapper container row">
-    <div class="center-align">Justinas shared this on __SHAREDATE__
-        <ul class="right">
-          <a href="__PATH__" class="dropbox-saver"></a>
-        </ul>
-    </div>
-  </div>
-  </nav>
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <div class="row center">
-      __PREVIEW__
-    </div>
-    </div>
-  </div>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+        <meta property="og:title" content="__FILENAME__" />
+        <meta property="og:site_name" content="__FILENAME__" />
+        <meta property="og:image" content="__PREVIEWURL__" />
+        
+        <title>__FILETYPE__, __FILESIZE__</title>
+        
+        <link href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css" rel="stylesheet">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/ocean.min.css" rel="stylesheet">
+        
+        <style>
+            nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+                height: initial;
+                line-height: initial;
+                min-height: 64px;
+            }
+            
+            img {
+                max-height: 80vh;
+                max-width: 100%;
+            }
+            
+            .preview-content-wrap pre {
+                font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+                line-height: 1.5;
+            }
+            
+            video, iframe {
+                height: auto;
+                max-height: 80vh;
+                width: 100%;
+            }
+            
+            iframe {
+                height: 80vh;
+            }
+        </style>
+    </head>
+    
+    <body style="background-color: #f2f2f2;">
+        <nav style="background-color: #0b3d91;">
+            <div class="container nav-wrapper row">
+                <div style="display: table; margin: 0px auto; padding: 12px 0px; vertical-align: middle;">
+                    <div style="display: table-cell; vertical-align: middle;">
+                        <img class="circle responsive-img user-image" src="//www.gravatar.com/avatar/<<replace:hash-of-an-email-address>>?s=40" style="vertical-align: middle;">
+                    </div>
+                    
+                    <div style="display: table-cell; padding-left: 10px; vertical-align: middle;">
+                        <span style="display: block;"><<replace:name>></span>
+                        <small>Shared this <span data-timestamp="__UNIXSHAREDATE__" id="date">__SHAREDATE__</span></small>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="no-pad-bot section" id="index-banner">
+            <div class="container">
+                <div class="center preview-content-wrap row">
+                    __PREVIEW__
+                </div>
+            </div>
+        </div>
+        
         <footer>
-            <h5 class="center-align">__FILENAME__</h5>
-      </footer>
-
-<!-- download -->
-<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a href="__PATH__" class="btn-floating waves-effect waves-circle waves-light btn-large red tooltipped" data-position="left" data-delay="500" data-tooltip="Download" download>
-      <i class="large mdi-action-get-app"></i>
-    </a>
-    <ul>
-
-      <li><a href="__PREVIEWURL__" class="btn-floating waves-effect waves-circle waves-light blue tooltipped " data-position="left" data-delay="50" data-tooltip="Direct" ><i class="large mdi-content-link"></i></a></li>
-
-      <li><a href="__PATH__?torrent" class="btn-floating waves-effect waves-circle waves-light green tooltipped" data-position="left" data-delay="50" data-tooltip="Torrent" ><i class="large mdi-social-share"></i></a></li>
-
-    </ul>
-  </div>
-  </body>
+            <p class="center-align" style="font-size: 1.64rem; line-height: 1.804rem; margin: 0.82rem 0 0.656rem 0;">
+                __FILENAME__ <span style="color: #6c757d; font-size: 60%;">(__FILESIZE__)</span>
+            </p>
+            
+            <p class="center-align" style="color: #6c757d; display: none;">
+                <small><strong>SHA2-256 checksum:</strong> <span id="integrity_hash"></span><br>
+                Download the file and use a program such as <em>shasum</em> to validate the integrity.</small>
+            </p>
+        </footer>
+        
+        <!-- download -->
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <a class="btn-floating btn-large waves-circle waves-effect waves-light" href="javascript:;" style="background-color: #0f9d58;">
+                <i class="fas fa-cloud-download-alt"></i>
+            </a>
+            
+            <ul>
+                <li>
+                    <a class="btn-floating tooltipped waves-circle waves-effect waves-light" data-delay="50" data-position="left" data-tooltip="Download" download href="__PATH__" style="background-color: #0b3d91;">
+                        <i class="fas fa-file-download"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="btn-floating tooltipped waves-circle waves-effect waves-light" data-delay="50" data-position="left" data-tooltip="Save to Dropbox" href="javascript:;" style="background-color: #007ee5;">
+                        <i class="fab fa-dropbox" onclick="Dropbox.save({files: [{'url': '__PATH__'}]});"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+        <script src="//www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="<<replace:app-key>>"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        
+        <script>
+            hljs.configure({
+                tabReplace: '    '
+            });
+            
+            var codeFileTypes = [
+                'public.plain-text',
+                'public.html',
+                'public.javascript-source',
+                'com.netscape.javascript-source',
+                'public.css',
+                'net.daringfireball.markdown'
+            ];
+            
+            // Files we want to consider code but that
+            // are unrecognized by __FILETYPE__
+            var codeFileExtensions = [
+                /.sass$/,
+                /.scss$/,
+                /.stylus$/,
+                /.less$/,
+                /.elm$/,
+                /.vue$/,
+                /.jsx$/
+            ];
+            
+            var isCode = false;
+            
+            codeFileTypes.forEach(function(type) {
+                if (type === '__FILETYPE__') {
+                    isCode = true;
+                }
+            });
+            
+            codeFileExtensions.forEach(function(extension) {
+                if ('__FILENAME__'.match(extension) !== null) {
+                    isCode = true;
+                }
+            });
+            
+            if (isCode) {
+                $.ajax({
+                    url: '__PREVIEWURL__',
+                    dataType: 'text',
+                    success: function(data) {
+                        var preview_block = $('.preview-content-wrap');
+                        
+                        preview_block.css('text-align', 'left');
+                        preview_block.text(data);
+                        preview_block.html('<pre>' + preview_block.html() + '</pre>');
+                        hljs.highlightBlock(preview_block[0]);
+                    }
+                });
+            } else if ($('.imagePreview').length == 0) {
+                $('.preview-content-wrap').html(
+                    '<div class="file-preview"><i class="fas fa-file fa-10x"></i></div>'
+                );
+            }
+            
+            var integrityHash = window.location.hash.substr(1);
+            
+            if (integrityHash.length > 0) {
+                $('#integrity_hash').html(integrityHash);
+                $('footer p').show();
+            }
+            
+            // Swap out timestamp for human readable time diff
+            var dateEl = $('#date');
+            var timestamp = parseInt(dateEl.data('timestamp'), 10);
+            
+            if (!isNaN(timestamp)) {
+                dateEl.html(moment(timestamp * 1000).fromNow());
+            }
+        </script>
+    </body>
 </html>
